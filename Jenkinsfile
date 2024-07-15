@@ -29,15 +29,13 @@ pipeline {
                 }
             }
         }
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    sh """
-                    kubectl set image deployment/${DEPLOYMENT_NAME} website=${DOCKER_IMAGE}:latest -n ${KUBERNETES_NAMESPACE} || kubectl create deployment ${DEPLOYMENT_NAME} --image=${DOCKER_IMAGE}:latest -n ${KUBERNETES_NAMESPACE}
-                    kubectl rollout status deployment/${DEPLOYMENT_NAME} -n ${KUBERNETES_NAMESPACE}
-                    """
+     stage('Deploying App to Kubernetes') {
+        steps {
+            script {
+                kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "k8s")
                 }
             }
         }
     }
 }
+
