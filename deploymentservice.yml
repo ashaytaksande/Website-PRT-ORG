@@ -20,7 +20,7 @@ spec:
       - name: webserver
         image: ashayalmighty/website-prt-org
         ports:
-        - containerPort: 3000
+        - containerPort: 80
         
         
 ---
@@ -36,5 +36,5 @@ spec:
   ports:
   - protocol: TCP
     port: 5000
-    targetPort: 3000
+    targetPort: 80
     nodePort: 31110
